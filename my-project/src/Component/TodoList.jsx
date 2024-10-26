@@ -6,6 +6,7 @@ const TodoList = () => {
       {title: "Sleep", description: "Take a quick nap", completed:false}
     ])
     const[newTask, setNewTask] = useState({title:"", description: ""})
+    const[darkMode, setDarkMode] = useState(false)
 
     function AddTask(){
         if(newTask.title.trim() !=="" && newTask.description.trim() !==""){
@@ -34,9 +35,19 @@ const TodoList = () => {
     );
     setTasks(updatedTask)
     }
+
+    function toggleDarkMode(){
+      setDarkMode(prevMode => !prevMode)
+    }
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-3xl font-bold mb-4 text-center">To Do List</h2>
+    <div className={`max-w-md mx-auto p-6 shadow-md rounded-lg transition-colors ${darkMode ? 'bg-gray-800 text-black' : 'bg-white text-black'}`}>
+      <h2 className={`text-3xl font-bold mb-4 text-center ${darkMode ? "text-white":"text-black"}`}>To Do List</h2>
+
+      <button 
+                onClick={toggleDarkMode} 
+                className={`mb-6 p-2 rounded-md transition ${darkMode ? "bg-gray-600 text-white" : "bg-gray-200 text-black"}`}>
+                {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+      </button>
 
       <div className="flex flex-col gap-4 mb-6">
         <input 
